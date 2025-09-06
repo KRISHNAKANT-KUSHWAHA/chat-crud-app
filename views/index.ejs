@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mini-whatsapp</title>
+  </head>
+  <body>
+    <h3>All the chats !</h3>
+    <form method="Get" action="/chats/new">
+      <button>New Chat</button>
+    </form>
+    <br />
+    <% for(let chat of chats){ %>
+    <div class="chat">
+      <p><i> From: <%= chat.from %> </i></p>
+      <div class="msg">
+        <p><%= chat.msg %></p>
+        <form method="GET" action="/chats/<%= chat._id %>/edit">
+          <button>Edit</button>
+        </form>
+        <br />
+        <form
+          method="post"
+          action="/chats/<%= chat._id %>?_method=delete"
+          class="delete-form"
+        >
+          <button>Delete</button>
+        </form>
+      </div>
+      <p><i> Recieved by <%= chat.to %></i></p>
+      <hr />
+      <p><%= chat.created_at.toString().split(" ")[4] %></p>
+      <p><%= chat.created_at.toString().split(" ").slice(0,4).join(" ") %></p>
+    </div>
+    <br /><br />
+    <% } %>
+  </body>
+
+  <script src="/chatDelete.js"></script>
+</html>
